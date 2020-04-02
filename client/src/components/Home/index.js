@@ -1,5 +1,5 @@
 export default () => {
   return (
-    'HOME'
+    'HOME screen'
   )
 }
