@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8000
 const config = require('./config/key')
 
 const { User } = require('./models/user')
