@@ -6,11 +6,15 @@
   "author": "rhapsodist",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "mongoose": "^5.9.7",
     "nodemon": "^2.0.2"
   },
   "scripts": {
+    "start": "node server.js",
+    "backend": "nodemon -e js server.js",
     "dev": "nodemon -e js server.js"
   }
 }
