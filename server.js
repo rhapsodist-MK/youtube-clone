@@ -8,7 +8,7 @@ const PORT = 3000
 const config = require('./config/key')
 
 const { User } = require('./models/user')
-
+const { auth } = require('./middleware/auth')
 
 mongoose.connect(config.MONGODB_URI, {useNewUrlParser: true})
   .then(() => console.log('DB connected'))
@@ -17,6 +17,18 @@ mongoose.connect(config.MONGODB_URI, {useNewUrlParser: true})
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(cookieParser())
+
+
+app.get('/api/user/auth', auth, (req, res) => {
+  res.status(200).json({
+    _id: req._id, 
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastName: req.user.lastName,
+    role: req.user.role
+  })
+})
 
 
 app.post('/api/users/register', (req, res) => {
@@ -28,7 +40,6 @@ app.post('/api/users/register', (req, res) => {
 })
 
 app.post('/api/user/login', (req, res) => {
-  // find the email
   User.findOne({email: req.body.email}, (err, user) => {
     if (!user) return res.json({loginSuccess: false, message: "Auth failed, email not found"})
 

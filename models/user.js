@@ -35,7 +35,8 @@ const userSchema = mongoose.Schema({
 })
 
 
-userSchema.pre('save', (next) => {
+// es6 불가
+userSchema.pre('save', function(next) {
   const user = this
 
   if (user.isModified('password')) {
@@ -44,8 +45,8 @@ userSchema.pre('save', (next) => {
   
       bcrypt.hash(user.password, salt, (err, hash) => {
         if (err) return next(err)
-  
         user.password = hash
+        next()
       })
     })
   } else {
@@ -53,21 +54,33 @@ userSchema.pre('save', (next) => {
   }
 })
 
-userSchema.methods.comparePassword = (plainPassword, callback) => {
+userSchema.methods.comparePassword = function (plainPassword, callback) {
   bcrypt.compare(plainPassword, this.password, (err, isMatch) => {
     if (err) return callback(err)
     callback(null, isMatch)
   })
 }
 
-userSchema.methods.generateToken = (callback) => {
+userSchema.methods.generateToken = function (callback) {
   const user = this
+
   const token = jwt.sign(user._id.toHexString(), 'secret')
 
   user.token = token
   user.save((err, user) => {
     if(err) return callback(err)
     callback(null, user)
+  })
+}
+
+userSchema.statics.findByToken = function (token, callback) {
+  const user = this
+
+  jwt.verify(token, 'secret', (err, decode) => {
+    user.findOne({_id: decode, token}, (err, user) => {
+      if(err) return callback(err)
+      callback(null, user)
+    })
   })
 }
 
