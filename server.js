@@ -5,12 +5,12 @@ const cookieParser = require('cookie-parser')
 
 const app = express()
 const PORT = 3000
-const dbConnection = process.env.MONGODB_URI || 'mongodb://localhost:27017/mongo-test'
+const config = require('./config/key')
 
 const { User } = require('./models/user')
 
 
-mongoose.connect(dbConnection, {useNewUrlParser: true})
+mongoose.connect(config.MONGODB_URI, {useNewUrlParser: true})
   .then(() => console.log('DB connected'))
   .catch((err) => console.error(err))
 
