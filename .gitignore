@@ -1,0 +1,9 @@
+/node_modules
+/build
+
+.DS_Store
+
+yarn-debug.kog*
+yarn-error.log*
+
+.vscode

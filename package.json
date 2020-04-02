@@ -1,0 +1,16 @@
+{
+  "name": "youtube_clone_nodejs_react_redux",
+  "version": "1.0.0",
+  "description": "youtube clone",
+  "main": "sever.js",
+  "author": "rhapsodist",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.7",
+    "nodemon": "^2.0.2"
+  },
+  "scripts": {
+    "dev": "nodemon -e js server.js"
+  }
+}
