@@ -15,8 +15,8 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
-    "start": "node server.js",
-    "backend": "nodemon -e js server.js",
-    "dev": "nodemon -e js server.js"
+    "start": "node server/server.js",
+    "backend": "nodemon -e js server/server.js",
+    "dev": "nodemon -e js server/server.js"
   }
 }
